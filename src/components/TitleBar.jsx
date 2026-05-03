@@ -6,7 +6,7 @@ const TitleBar = () => {
   return (
     <div
       data-tauri-drag-region
-      className="h-10  flex items-center justify-end px-4 select-none cursor-grab"
+      className="h-10 flex items-center justify-end px-4 select-none cursor-grab"
     >
       <div className="flex items-center gap-2">
         <button

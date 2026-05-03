@@ -4,6 +4,7 @@
 @theme {
   --color-mainbg: #090b12;
   --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --height-screen-minus-40: calc(100vh - 40px);
 }
 
 @layer base {
