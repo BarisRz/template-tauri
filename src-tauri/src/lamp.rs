@@ -59,8 +59,13 @@ pub fn send_command(method: &str, params: serde_json::Value) -> Result<(), Strin
 }
 
 #[tauri::command]
-pub fn get_lamp_state() -> Result<LampState, String> {
-    let mut stream = connect()?;
+pub async fn get_lamp_state() -> Result<LampState, String> {
+    let mut stream = TcpStream::connect(format!("{}:{}", IP, PORT))
+        .map_err(|e| format!("Connexion échouée : {}", e))?;
+
+    stream
+        .set_read_timeout(Some(std::time::Duration::from_secs(5)))
+        .map_err(|e| format!("Timeout config échoué : {}", e))?;
 
     let command = serde_json::json!({
         "id": 1,

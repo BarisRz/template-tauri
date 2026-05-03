@@ -3,6 +3,10 @@
 
 @theme {
   --color-mainbg: #090b12;
+  --color-componentbg: #171820;
+  --color-border: #2d2f35;
+  --color-text-primary: #e3e2e4;
+  --color-text-secondary: #a0a0a3;
   --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --height-screen-minus-40: calc(100vh - 40px);
 }
@@ -11,5 +15,11 @@
   html,
   body {
     @apply font-sans;
+  }
+}
+
+@layer components {
+  .section-primary {
+    @apply bg-componentbg text-text-primary h-57.5 rounded-3xl border border-border p-5;
   }
 }

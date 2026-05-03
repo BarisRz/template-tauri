@@ -1,43 +1,56 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-const Home = () => {
-  const [lampState, setLampState] = useState(null);
-  const [showRetry, setShowRetry] = useState(false);
-  console.log(lampState);
-  const fetchState = () => {
-    setLampState(null);
-    setShowRetry(false);
+import Error from "./Error";
+import ColorSelect from "../components/ColorSelect";
+import SwitchComponent from "../components/SwitchComponent";
+import Theme from "../components/Theme";
+import Skeleton from "../components/Skeleton";
 
-    const timer = setTimeout(() => setShowRetry(true), 5000);
+function Home() {
+  const {
+    data: lampState,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["lampState"],
+    queryFn: () => invoke("get_lamp_state"),
+    retry: false,
+  });
 
-    invoke("get_lamp_state")
-      .then((state) => {
-        clearTimeout(timer);
-        setLampState(state);
-      })
-      .catch((err) => {
-        clearTimeout(timer);
-        console.error(err);
-        setShowRetry(true);
-      });
-  };
+  if (isLoading) {
+    return <Skeleton />;
+  }
 
-  useEffect(() => {
-    fetchState();
-  }, []);
-
+  if (error) {
+    return <Error />;
+  }
+  console.log("Lamp State:", lampState);
   return (
-    <div>
-      {lampState ? (
-        <pre>{JSON.stringify(lampState, null, 2)}</pre>
-      ) : showRetry ? (
-        <button onClick={fetchState}>Réessayer</button>
-      ) : (
-        <p>Chargement...</p>
-      )}
+    <div className="flex flex-col gap-4 px-4">
+      <div className="section-primary">
+        <SwitchComponent lampState={lampState} />
+      </div>
+      <div className="section-primary">
+        <ColorSelect />
+      </div>
+      <div className="section-primary">
+        <Theme />
+      </div>
+      {/* <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
     </div>
   );
-};
+}
 
 export default Home;
+
+// {
+//   "power": "on",
+//   "bright": 1,
+//   "color_mode": 2,
+//   "ct": 4000,
+//   "rgb": 16711680,
+//   "hue": 359,
+//   "sat": 100
+// }
