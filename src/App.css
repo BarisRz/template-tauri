@@ -1,2 +1,14 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+  --color-mainbg: #090b12;
+  --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    @apply font-sans;
+  }
+}
