@@ -103,5 +103,6 @@ pub fn set_bright_rgb(state: LampState) -> Result<(), String> {
     if state.bright < 1 || state.bright > 100 {
         return Err("Luminosité invalide : doit être entre 1 et 100".to_string());
     }
-    send_command("set_bright", serde_json::json!([state.bright, "smooth", 500]))
+    send_command("set_bright", serde_json::json!([state.bright, "sudden", 0]))?;
+    Ok(())
 }

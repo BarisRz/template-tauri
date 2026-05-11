@@ -50,7 +50,12 @@ function SwitchComponent({ lampState, refetch }) {
           min={0}
           max="100"
           className="range w-full"
-          onChange={(e) => {
+          onMouseUp={(e) => {
+            if (lampState.power === "off") {
+              invoke("set_power", {
+                power: "on",
+              }).then(() => refetch());
+            }
             const newBrightness = parseInt(e.target.value);
             invoke("set_bright_rgb", {
               state: { ...lampState, bright: newBrightness },
