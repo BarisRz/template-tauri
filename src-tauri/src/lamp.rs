@@ -99,14 +99,9 @@ pub fn set_power(power: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn set_color_rgb(rgb: u32, bright: u8) -> Result<(), String> {
-    if rgb > 16777215 {
-        return Err("RGB invalide : doit être entre 0 et 16777215".to_string());
-    }
-    if bright < 1 || bright > 100 {
+pub fn set_bright_rgb(state: LampState) -> Result<(), String> {
+    if state.bright < 1 || state.bright > 100 {
         return Err("Luminosité invalide : doit être entre 1 et 100".to_string());
     }
-
-    send_command("set_rgb", serde_json::json!([rgb, "smooth", 500]))?;
-    send_command("set_bright", serde_json::json!([bright, "smooth", 500]))
+    send_command("set_bright", serde_json::json!([state.bright, "smooth", 500]))
 }

@@ -1,6 +1,8 @@
 import { Power, Lightbulb, Sparkles } from "lucide-react";
+import { invoke } from "@tauri-apps/api/core";
+import { useState } from "react";
 
-function SwitchComponent({ lampState }) {
+function SwitchComponent({ lampState, refetch }) {
   return (
     <div className="flex flex-col h-full justify-between">
       <div className="flex justify-between py-2">
@@ -22,6 +24,11 @@ function SwitchComponent({ lampState }) {
               ? "bg-linear-to-br from-emerald-500/90 to-emerald-600/90 hover:from-emerald-400 hover:to-emerald-600/90 shadow-2xl shadow-emerald-500/30"
               : "bg-gray-500")
           }
+          onClick={() =>
+            invoke("set_power", {
+              power: lampState?.power === "on" ? "off" : "on",
+            }).then(() => refetch())
+          }
         >
           <Power className="w-5 h-5 text-white" />
         </div>
@@ -38,7 +45,18 @@ function SwitchComponent({ lampState }) {
             {lampState.bright}%
           </span>
         </div>
-        <input type="range" min={0} max="100" className="range w-full" />
+        <input
+          type="range"
+          min={0}
+          max="100"
+          className="range w-full"
+          onChange={(e) => {
+            const newBrightness = parseInt(e.target.value);
+            invoke("set_bright_rgb", {
+              state: { ...lampState, bright: newBrightness },
+            }).then(() => refetch());
+          }}
+        />
       </div>
     </div>
   );

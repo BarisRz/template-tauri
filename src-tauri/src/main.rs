@@ -7,7 +7,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             lamp::get_lamp_state,
             lamp::set_power,
-            lamp::set_color_rgb,
+            lamp::set_bright_rgb,
         ])
         .run(tauri::generate_context!())
         .expect("Erreur au lancement de l'app");

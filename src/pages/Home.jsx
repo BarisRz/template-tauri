@@ -30,7 +30,7 @@ function Home() {
   return (
     <div className="flex flex-col gap-4 px-4">
       <div className="section-primary">
-        <SwitchComponent lampState={lampState} />
+        <SwitchComponent lampState={lampState} refetch={refetch} />
       </div>
       <div className="section-primary">
         <ColorSelect />
@@ -38,7 +38,7 @@ function Home() {
       <div className="section-primary">
         <Theme />
       </div>
-      {/* <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
+      <pre>{JSON.stringify(lampState, null, 2)}</pre>
     </div>
   );
 }
