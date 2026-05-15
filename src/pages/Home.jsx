@@ -32,13 +32,14 @@ function Home() {
       <div className="section-primary">
         <SwitchComponent lampState={lampState} refetch={refetch} />
       </div>
-      {/* <div className="section-primary">
+
+      <div className="section-primary">
         <ColorSelect />
       </div>
       <div className="section-primary">
         <Theme />
       </div>
-      <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
+      <pre>{JSON.stringify(lampState, null, 2)}</pre>
     </div>
   );
 }

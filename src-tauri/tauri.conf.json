@@ -14,9 +14,9 @@
       {
         "title": "Light Hub",
         "width": 470,
-        "height": 310,
+        "height": 780,
         "maxWidth": 470,
-        "maxHeight": 310,
+        "maxHeight": 780,
         "center": true,
         "resizable": false,
         "fullscreen": false,

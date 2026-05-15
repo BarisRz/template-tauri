@@ -46,20 +46,18 @@ function SwitchComponent({ lampState, refetch }) {
           </span>
         </div>
         <input
+          key={lampState.bright}
           type="range"
           min={1}
-          max="100"
-          defaultValue={lampState.bright}
+          max={100}
           className="range w-full"
+          defaultValue={lampState.bright}
           onMouseUp={(e) => {
             if (lampState.power === "off") {
-              invoke("set_power", {
-                power: "on",
-              }).then(() => refetch());
+              invoke("set_power", { power: "on" }).then(() => refetch());
             }
-            const newBrightness = parseInt(e.target.value);
             invoke("set_bright", {
-              state: { ...lampState, bright: newBrightness },
+              state: { ...lampState, bright: parseInt(e.target.value) },
             }).then(() => refetch());
           }}
         />
@@ -77,20 +75,21 @@ function SwitchComponent({ lampState, refetch }) {
           </span>
         </div>
         <input
+          key={lampState.ct}
           type="range"
           min={1700}
           max={6500}
           defaultValue={lampState.ct}
           className="range w-full"
           list="ct-checkpoints"
+          step={100}
           onMouseUp={(e) => {
             if (lampState.power === "off") {
               invoke("set_power", { power: "on" }).then(() => refetch());
             }
-            const newCT = parseInt(e.target.value);
-            invoke("set_ct", { state: { ...lampState, ct: newCT } }).then(() =>
-              refetch(),
-            );
+            invoke("set_ct", {
+              state: { ...lampState, ct: parseInt(e.target.value) },
+            }).then(() => refetch());
           }}
         />
         <datalist id="ct-checkpoints">
