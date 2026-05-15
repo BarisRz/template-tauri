@@ -32,13 +32,13 @@ function Home() {
       <div className="section-primary">
         <SwitchComponent lampState={lampState} refetch={refetch} />
       </div>
-      <div className="section-primary">
+      {/* <div className="section-primary">
         <ColorSelect />
       </div>
       <div className="section-primary">
         <Theme />
       </div>
-      <pre>{JSON.stringify(lampState, null, 2)}</pre>
+      <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
     </div>
   );
 }
@@ -54,3 +54,17 @@ export default Home;
 //   "hue": 359,
 //   "sat": 100
 // }
+
+// {
+//         "title": "Light Hub",
+//         "width": 470,
+//         "height": 780,
+//         "maxWidth": 470,
+//         "maxHeight": 780,
+//         "center": true,
+//         "resizable": false,
+//         "fullscreen": false,
+//         "maximizable": false,
+//         "decorations": false,
+//         "backgroundColor": "#0d0f16"
+//       }

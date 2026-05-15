@@ -99,10 +99,19 @@ pub fn set_power(power: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn set_bright_rgb(state: LampState) -> Result<(), String> {
+pub async fn set_bright(state: LampState) -> Result<(), String> {
     if state.bright < 1 || state.bright > 100 {
         return Err("Luminosité invalide : doit être entre 1 et 100".to_string());
     }
     send_command("set_bright", serde_json::json!([state.bright, "sudden", 0]))?;
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn set_ct(state: LampState) -> Result<(), String> {
+    if state.ct < 1700 || state.ct > 6500 {
+        return Err("CT invalide : doit être entre 1700 et 6500".to_string());
+    }
+    send_command("set_ct_abx", serde_json::json!([state.ct, "sudden", 0]))?;
     Ok(())
 }

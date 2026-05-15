@@ -1,11 +1,11 @@
-import { Power, Lightbulb, Sparkles } from "lucide-react";
+import { Power, Lightbulb, Sparkles, Thermometer } from "lucide-react";
 import { invoke } from "@tauri-apps/api/core";
 import { useState } from "react";
 
 function SwitchComponent({ lampState, refetch }) {
   return (
     <div className="flex flex-col h-full justify-between">
-      <div className="flex justify-between py-2">
+      <section className="flex justify-between py-2">
         <div className="flex gap-2">
           <div className="w-14 h-14 bg-[#d8a253] rounded-xl flex items-center justify-center shadow-2xl shadow-[#d8a35367]">
             <Lightbulb className="w-6 h-6 text-white" />
@@ -32,8 +32,8 @@ function SwitchComponent({ lampState, refetch }) {
         >
           <Power className="w-5 h-5 text-white" />
         </div>
-      </div>
-      <div className="flex flex-col gap-5 pb-2">
+      </section>
+      <section className="flex flex-col gap-2 my-2">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-gray-300" />
@@ -47,8 +47,9 @@ function SwitchComponent({ lampState, refetch }) {
         </div>
         <input
           type="range"
-          min={0}
+          min={1}
           max="100"
+          defaultValue={lampState.bright}
           className="range w-full"
           onMouseUp={(e) => {
             if (lampState.power === "off") {
@@ -57,12 +58,43 @@ function SwitchComponent({ lampState, refetch }) {
               }).then(() => refetch());
             }
             const newBrightness = parseInt(e.target.value);
-            invoke("set_bright_rgb", {
+            invoke("set_bright", {
               state: { ...lampState, bright: newBrightness },
             }).then(() => refetch());
           }}
         />
-      </div>
+      </section>
+      <section className="flex flex-col gap-2 mt-2 mb-1">
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <Thermometer className="w-4 h-4 text-gray-300" />
+            <span className="text-sm text-gray-300 font-semibold">
+              Température de couleur
+            </span>
+          </div>
+          <span className="text-sm text-gray-300 font-bold">
+            {lampState.ct}K
+          </span>
+        </div>
+        <input
+          type="range"
+          min={1700}
+          max="6500"
+          defaultValue={lampState.ct}
+          className="range w-full"
+          onMouseUp={(e) => {
+            if (lampState.power === "off") {
+              invoke("set_power", {
+                power: "on",
+              }).then(() => refetch());
+            }
+            const newCT = parseInt(e.target.value);
+            invoke("set_ct", {
+              state: { ...lampState, ct: newCT },
+            }).then(() => refetch());
+          }}
+        />
+      </section>
     </div>
   );
 }
