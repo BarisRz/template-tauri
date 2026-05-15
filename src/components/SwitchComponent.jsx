@@ -79,21 +79,23 @@ function SwitchComponent({ lampState, refetch }) {
         <input
           type="range"
           min={1700}
-          max="6500"
+          max={6500}
           defaultValue={lampState.ct}
           className="range w-full"
+          list="ct-checkpoints"
           onMouseUp={(e) => {
             if (lampState.power === "off") {
-              invoke("set_power", {
-                power: "on",
-              }).then(() => refetch());
+              invoke("set_power", { power: "on" }).then(() => refetch());
             }
             const newCT = parseInt(e.target.value);
-            invoke("set_ct", {
-              state: { ...lampState, ct: newCT },
-            }).then(() => refetch());
+            invoke("set_ct", { state: { ...lampState, ct: newCT } }).then(() =>
+              refetch(),
+            );
           }}
         />
+        <datalist id="ct-checkpoints">
+          <option value={4000} />
+        </datalist>
       </section>
     </div>
   );
