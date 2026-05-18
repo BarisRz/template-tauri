@@ -1,11 +1,12 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useQuery } from "@tanstack/react-query";
+import { Outlet } from "react-router-dom";
 
 import Error from "./Error";
-import ColorSelect from "../components/ColorSelect";
 import SwitchComponent from "../components/SwitchComponent";
 import Theme from "../components/Theme";
 import Skeleton from "../components/Skeleton";
+import ColorTitleSection2 from "../components/ColorTitleSection2";
 
 function Home() {
   const {
@@ -34,10 +35,11 @@ function Home() {
       </div>
 
       <div className="section-primary">
-        <ColorSelect />
+        <ColorTitleSection2 lampState={lampState} refetch={refetch} />
+        <Outlet lampState={lampState} refetch={refetch} />
       </div>
       <div className="section-primary">
-        <Theme />
+        <Theme lampState={lampState} refetch={refetch} />
       </div>
       <pre>{JSON.stringify(lampState, null, 2)}</pre>
     </div>

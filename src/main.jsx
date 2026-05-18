@@ -7,6 +7,8 @@ import App from "./App";
 import Error from "./pages/Error";
 
 import Home from "./pages/Home";
+import ColorSelect from "./components/ColorSelect";
+import ColorWheel from "./components/ColorWheel";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +20,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <ColorSelect />,
+          },
+          {
+            path: "/color-wheel",
+            element: <ColorWheel />,
+          },
+        ],
       },
     ],
   },

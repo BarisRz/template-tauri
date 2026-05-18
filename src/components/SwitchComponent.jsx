@@ -4,25 +4,40 @@ import { useState } from "react";
 
 function SwitchComponent({ lampState, refetch }) {
   return (
-    <div className="flex flex-col h-full justify-between">
+    <div
+      className={
+        "flex flex-col h-full justify-between transition-colors " +
+        (lampState?.power === "off" && "text-gray-700")
+      }
+    >
       <section className="flex justify-between py-2">
         <div className="flex gap-2">
-          <div className="w-14 h-14 bg-[#d8a253] rounded-xl flex items-center justify-center shadow-2xl shadow-[#d8a35367]">
-            <Lightbulb className="w-6 h-6 text-white" />
+          <div
+            className={
+              "w-14 h-14  rounded-xl flex items-center justify-center transition-all " +
+              (lampState?.power === "on"
+                ? "bg-[#d8a253]  shadow-lg shadow-yellow-400/50"
+                : "bg-gray-600")
+            }
+          >
+            <Lightbulb
+              className={
+                "w-6 h-6 " +
+                (lampState?.power === "on" ? "text-white" : "text-black")
+              }
+            />
           </div>
           <div className="flex flex-col justify-center pl-2">
             <h2 className="text-lg font-medium">Lumière Principale</h2>
-            <p className="text-sm text-gray-400">
-              {lampState ? "Allumée" : "Éteinte"}
-            </p>
+            <p className="text-sm">{lampState ? "Allumée" : "Éteinte"}</p>
           </div>
         </div>
         <div
           className={
             "w-14 h-14 rounded-xl flex items-center justify-center cursor-pointer transition-all " +
-            (lampState.power === "on"
+            (lampState?.power === "on"
               ? "bg-linear-to-br from-emerald-500/90 to-emerald-600/90 hover:from-emerald-400 hover:to-emerald-600/90 shadow-2xl shadow-emerald-500/30"
-              : "bg-gray-500")
+              : "bg-gray-600")
           }
           onClick={() =>
             invoke("set_power", {
@@ -30,20 +45,21 @@ function SwitchComponent({ lampState, refetch }) {
             }).then(() => refetch())
           }
         >
-          <Power className="w-5 h-5 text-white" />
+          <Power
+            className={
+              "w-5 h-5 " +
+              (lampState?.power === "on" ? "text-white" : "text-black ")
+            }
+          />
         </div>
       </section>
-      <section className="flex flex-col gap-2 my-2">
+      <section className="flex flex-col gap-2 my-2 hover:text-white transition-colors">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-gray-300" />
-            <span className="text-sm text-gray-300 font-semibold">
-              Luminosité
-            </span>
+            <Sparkles className="w-4 h-4" />
+            <span className="text-sm font-semibold">Luminosité</span>
           </div>
-          <span className="text-sm text-gray-300 font-bold">
-            {lampState.bright}%
-          </span>
+          <span className="text-sm font-bold">{lampState.bright}%</span>
         </div>
         <input
           key={lampState.bright}
@@ -62,17 +78,15 @@ function SwitchComponent({ lampState, refetch }) {
           }}
         />
       </section>
-      <section className="flex flex-col gap-2 mt-2 mb-1">
+      <section className="flex flex-col gap-2 mt-2 mb-1 hover:text-white transition-colors">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
-            <Thermometer className="w-4 h-4 text-gray-300" />
-            <span className="text-sm text-gray-300 font-semibold">
+            <Thermometer className="w-4 h-4" />
+            <span className="text-sm font-semibold">
               Température de couleur
             </span>
           </div>
-          <span className="text-sm text-gray-300 font-bold">
-            {lampState.ct}K
-          </span>
+          <span className="text-sm font-bold">{lampState.ct}K</span>
         </div>
         <input
           key={lampState.ct}
