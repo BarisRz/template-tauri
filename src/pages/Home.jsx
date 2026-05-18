@@ -27,7 +27,6 @@ function Home() {
   if (error) {
     return <Error />;
   }
-  console.log("Lamp State:", lampState);
   return (
     <div className="flex flex-col gap-4 px-4">
       <div className="section-primary">
@@ -35,8 +34,8 @@ function Home() {
       </div>
 
       <div className="section-primary">
-        <ColorTitleSection2 lampState={lampState} refetch={refetch} />
-        <Outlet lampState={lampState} refetch={refetch} />
+        <ColorTitleSection2 lampState={lampState} />
+        <Outlet context={{ lampState, refetch }} />
       </div>
       <div className="section-primary">
         <Theme lampState={lampState} refetch={refetch} />

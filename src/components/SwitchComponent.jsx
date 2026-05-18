@@ -29,7 +29,9 @@ function SwitchComponent({ lampState, refetch }) {
           </div>
           <div className="flex flex-col justify-center pl-2">
             <h2 className="text-lg font-medium">Lumière Principale</h2>
-            <p className="text-sm">{lampState ? "Allumée" : "Éteinte"}</p>
+            <p className="text-sm">
+              {lampState?.power === "on" ? "Allumée" : "Éteinte"}
+            </p>
           </div>
         </div>
         <div
