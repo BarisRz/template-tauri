@@ -11,7 +11,7 @@ function ColorTitleSection2({ lampState }) {
         <Palette className="w-4 h-4" /> Couleur
       </div>
       <div className="flex items-center gap-2 rounded-3xl">
-        <Pipette className="w-4 h-4" />
+        <Pipette className="w-4 h-4" /> Custom
       </div>
     </section>
   );
