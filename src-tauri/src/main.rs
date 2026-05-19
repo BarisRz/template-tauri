@@ -8,7 +8,8 @@ fn main() {
             lamp::get_lamp_state,
             lamp::set_power,
             lamp::set_bright,
-            lamp::set_ct
+            lamp::set_ct,
+            lamp::set_rgb
         ])
         .run(tauri::generate_context!())
         .expect("Erreur au lancement de l'app");

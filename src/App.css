@@ -26,3 +26,11 @@
     @apply bg-amber-300 hover:scale-110 flex-1 h-10 rounded-xl transition-all;
   }
 }
+
+.container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.container::-webkit-scrollbar {
+  display: none;
+}

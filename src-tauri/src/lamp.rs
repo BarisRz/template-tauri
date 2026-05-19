@@ -108,6 +108,15 @@ pub async fn set_bright(state: LampState) -> Result<(), String> {
 }
 
 #[tauri::command]
+pub async fn set_rgb(state: LampState) -> Result<(), String> {
+    if state.rgb > 16777215 {
+        return Err("RGB invalide : doit être entre 0 et 16777215".to_string());
+    }
+    send_command("set_rgb", serde_json::json!([state.rgb, "sudden", 0]))?;
+    Ok(())
+}
+
+#[tauri::command]
 pub async fn set_ct(state: LampState) -> Result<(), String> {
     if state.ct < 1700 || state.ct > 6500 {
         return Err("CT invalide : doit être entre 1700 et 6500".to_string());
