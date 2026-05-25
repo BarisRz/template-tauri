@@ -26,11 +26,10 @@ function ColorSelect() {
       invoke("set_power", {
         power: lampState?.power === "on" ? "off" : "on",
       }).then(() => refetch());
-    } else {
-      invoke("set_rgb", {
-        state: { ...lampState, rgb: colors[color].rgb },
-      }).then(() => refetch());
     }
+    invoke("set_rgb", {
+      state: { ...lampState, rgb: colors[color].rgb },
+    }).then(() => refetch());
   };
 
   const handleCtChange = (ct) => {
@@ -38,11 +37,10 @@ function ColorSelect() {
       invoke("set_power", {
         power: lampState?.power === "on" ? "off" : "on",
       }).then(() => refetch());
-    } else {
-      invoke("set_ct", {
-        state: { ...lampState, ct },
-      }).then(() => refetch());
     }
+    invoke("set_ct", {
+      state: { ...lampState, ct },
+    }).then(() => refetch());
   };
 
   return (
@@ -52,7 +50,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ffffff]")
             }
             onClick={() => handleColorChange("white")}
             style={{
@@ -62,7 +60,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ff6b6b]")
             }
             onClick={() => handleColorChange("red")}
             style={{
@@ -72,7 +70,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#45b7d1]")
             }
             onClick={() => handleColorChange("blue")}
             style={{
@@ -82,7 +80,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#51d96e]")
             }
             onClick={() => handleColorChange("green")}
             style={{
@@ -92,7 +90,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#f5c563]")
             }
             onClick={() => handleColorChange("yellow")}
             style={{
@@ -115,7 +113,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ff8c3a]")
             }
             onClick={() => handleCtChange(2000)}
             style={{
@@ -125,7 +123,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ffb870]")
             }
             onClick={() => handleCtChange(3000)}
             style={{
@@ -135,7 +133,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ffd5a8]")
             }
             onClick={() => handleCtChange(4000)}
             style={{
@@ -145,7 +143,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#ffecda]")
             }
             onClick={() => handleCtChange(5000)}
             style={{
@@ -155,7 +153,7 @@ function ColorSelect() {
           <button
             className={
               "bouton-colorselect " +
-              (lampState.power === "off" && "bg-gray-600")
+              (lampState.power === "off" && "bg-gray-600 hover:bg-[#f5f0ff]")
             }
             onClick={() => handleCtChange(6500)}
             style={{

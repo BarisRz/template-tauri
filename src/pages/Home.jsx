@@ -37,10 +37,10 @@ function Home() {
         <ColorTitleSection2 lampState={lampState} />
         <Outlet context={{ lampState, refetch }} />
       </div>
-      <div className="section-primary">
+      {/* <div className="section-primary">
         <Theme lampState={lampState} refetch={refetch} />
-      </div>
-      <pre>{JSON.stringify(lampState, null, 2)}</pre>
+      </div> */}
+      {/* <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
     </div>
   );
 }

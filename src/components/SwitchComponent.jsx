@@ -36,10 +36,10 @@ function SwitchComponent({ lampState, refetch }) {
         </div>
         <div
           className={
-            "w-14 h-14 rounded-xl flex items-center justify-center cursor-pointer transition-all " +
+            "w-14 h-14 rounded-xl flex items-center justify-center cursor-pointer transition-all  " +
             (lampState?.power === "on"
               ? "bg-linear-to-br from-emerald-500/90 to-emerald-600/90 hover:from-emerald-400 hover:to-emerald-600/90 shadow-2xl shadow-emerald-500/30"
-              : "bg-gray-600")
+              : "bg-gray-600 hover:bg-linear-to-br from-emerald-500/90 to-emerald-600/90 transition-colors")
           }
           onClick={() =>
             invoke("set_power", {
