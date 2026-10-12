@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.app_lumiere" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Fond sombre de l'app, évite un flash blanc au lancement -->
+        <item name="android:windowBackground">@color/main_background</item>
+    </style>
+</resources>

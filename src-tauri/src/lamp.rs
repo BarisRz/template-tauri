@@ -1,5 +1,6 @@
 use std::io::{BufRead, BufReader, Write};
-use std::net::TcpStream;
+use std::net::{SocketAddr, TcpStream};
+use std::time::Duration;
 use serde::{Deserialize, Serialize};
 
 const IP: &str = "192.168.1.85";
@@ -16,9 +17,18 @@ pub struct LampState {
     pub sat: u8,
 }
 
+const TIMEOUT: Duration = Duration::from_secs(3);
+
 fn connect() -> Result<TcpStream, String> {
-    TcpStream::connect(format!("{}:{}", IP, PORT))
-        .map_err(|e| format!("Connexion échouée : {}", e))
+    let address: SocketAddr = format!("{}:{}", IP, PORT)
+        .parse()
+        .map_err(|e| format!("Adresse invalide : {}", e))?;
+    let stream = TcpStream::connect_timeout(&address, TIMEOUT)
+        .map_err(|e| format!("Connexion échouée : {}", e))?;
+    stream
+        .set_read_timeout(Some(TIMEOUT))
+        .map_err(|e| format!("Timeout config échoué : {}", e))?;
+    Ok(stream)
 }
 
 fn send_and_receive(stream: &mut TcpStream, command: serde_json::Value) -> Result<serde_json::Value, String> {
@@ -60,12 +70,7 @@ pub fn send_command(method: &str, params: serde_json::Value) -> Result<(), Strin
 
 #[tauri::command]
 pub async fn get_lamp_state() -> Result<LampState, String> {
-    let mut stream = TcpStream::connect(format!("{}:{}", IP, PORT))
-        .map_err(|e| format!("Connexion échouée : {}", e))?;
-
-    stream
-        .set_read_timeout(Some(std::time::Duration::from_secs(5)))
-        .map_err(|e| format!("Timeout config échoué : {}", e))?;
+    let mut stream = connect()?;
 
     let command = serde_json::json!({
         "id": 1,
@@ -91,7 +96,7 @@ pub async fn get_lamp_state() -> Result<LampState, String> {
 }
 
 #[tauri::command]
-pub fn set_power(power: String) -> Result<(), String> {
+pub async fn set_power(power: String) -> Result<(), String> {
     if power != "on" && power != "off" {
         return Err("Valeur invalide : utilise 'on' ou 'off'".to_string());
     }

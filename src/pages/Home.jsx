@@ -1,27 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Palette } from "lucide-react";
 
 import Error from "./Error";
 import SwitchComponent from "../components/SwitchComponent";
-import Theme from "../components/Theme";
+import ColorSelect from "../components/ColorSelect";
 import Skeleton from "../components/Skeleton";
-import ColorTitleSection2 from "../components/ColorTitleSection2";
 import useLampState from "../hooks/useLampState";
 
 function Home() {
-  const {
-    data: lampState,
-    isLoading,
-    error,
-    refetch,
-  } = useLampState();
+  const { data: lampState, isLoading, refetch } = useLampState();
 
   if (isLoading) {
     return <Skeleton />;
   }
 
-  if (error) {
-    return <Error />;
+  // Une erreur pendant un rechargement en arrière-plan garde le dernier état connu
+  if (!lampState) {
+    return <Error refetch={refetch} />;
   }
+
   return (
     <div className="flex flex-col gap-4 px-4">
       <div className="section-primary">
@@ -29,39 +25,19 @@ function Home() {
       </div>
 
       <div className="section-primary">
-        <ColorTitleSection2 lampState={lampState} />
-        <Outlet context={{ lampState, refetch }} />
+        <div
+          className={
+            "flex gap-2 items-center text-sm font-semibold " +
+            (lampState.power === "off" && "text-gray-700")
+          }
+        >
+          <Palette className="w-4 h-4" />
+          Couleur
+        </div>
+        <ColorSelect lampState={lampState} refetch={refetch} />
       </div>
-      {/* <div className="section-primary">
-        <Theme lampState={lampState} refetch={refetch} />
-      </div> */}
-      {/* <pre>{JSON.stringify(lampState, null, 2)}</pre> */}
     </div>
   );
 }
 
 export default Home;
-
-// {
-//   "power": "on",
-//   "bright": 1,
-//   "color_mode": 2,
-//   "ct": 4000,
-//   "rgb": 16711680,
-//   "hue": 359,
-//   "sat": 100
-// }
-
-// {
-//         "title": "Light Hub",
-//         "width": 470,
-//         "height": 780,
-//         "maxWidth": 470,
-//         "maxHeight": 780,
-//         "center": true,
-//         "resizable": false,
-//         "fullscreen": false,
-//         "maximizable": false,
-//         "decorations": false,
-//         "backgroundColor": "#0d0f16"
-//       }

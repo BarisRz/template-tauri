@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Light Hub</string>
+    <string name="main_activity_title">Light Hub</string>
+    <string name="tile_label">Lumière</string>
+    <string name="tile_on">Allumée</string>
+    <string name="tile_off">Éteinte</string>
+    <string name="tile_unreachable">Injoignable</string>
+</resources>

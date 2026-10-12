@@ -1,9 +1,7 @@
-import { useOutletContext } from "react-router-dom";
 import { Thermometer } from "lucide-react";
 import { invoke } from "@tauri-apps/api/core";
 
-function ColorSelect() {
-  const { lampState, refetch } = useOutletContext();
+function ColorSelect({ lampState, refetch }) {
 
   const colors = {
     white: { rgb: 16777215, hex: "#ffffff" },

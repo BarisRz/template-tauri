@@ -1,8 +1,16 @@
 import { Power, Lightbulb, Sparkles, Thermometer } from "lucide-react";
 import { invoke } from "@tauri-apps/api/core";
-import { useState } from "react";
+import LampSlider from "./LampSlider";
 
 function SwitchComponent({ lampState, refetch }) {
+  // Toucher un slider rallume la lampe si elle est éteinte
+  const turnOnThen = (command) => {
+    if (lampState.power === "off") {
+      invoke("set_power", { power: "on" }).then(() => refetch());
+    }
+    command().then(() => refetch());
+  };
+
   return (
     <div
       className={
@@ -55,63 +63,29 @@ function SwitchComponent({ lampState, refetch }) {
           />
         </div>
       </section>
-      <section className="flex flex-col gap-2 my-2 hover:text-white transition-colors">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-semibold">Luminosité</span>
-          </div>
-          <span className="text-sm font-bold">{lampState.bright}%</span>
-        </div>
-        <input
-          key={lampState.bright}
-          type="range"
-          min={1}
-          max={100}
-          className="range w-full"
-          defaultValue={lampState.bright}
-          onMouseUp={(e) => {
-            if (lampState.power === "off") {
-              invoke("set_power", { power: "on" }).then(() => refetch());
-            }
-            invoke("set_bright", {
-              state: { ...lampState, bright: parseInt(e.target.value) },
-            }).then(() => refetch());
-          }}
-        />
-      </section>
-      <section className="flex flex-col gap-2 mt-2 mb-1 hover:text-white transition-colors">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-2">
-            <Thermometer className="w-4 h-4" />
-            <span className="text-sm font-semibold">
-              Température de couleur
-            </span>
-          </div>
-          <span className="text-sm font-bold">{lampState.ct}K</span>
-        </div>
-        <input
-          key={lampState.ct}
-          type="range"
-          min={1700}
-          max={6500}
-          defaultValue={lampState.ct}
-          className="range w-full"
-          list="ct-checkpoints"
-          step={100}
-          onMouseUp={(e) => {
-            if (lampState.power === "off") {
-              invoke("set_power", { power: "on" }).then(() => refetch());
-            }
-            invoke("set_ct", {
-              state: { ...lampState, ct: parseInt(e.target.value) },
-            }).then(() => refetch());
-          }}
-        />
-        <datalist id="ct-checkpoints">
-          <option value={4000} />
-        </datalist>
-      </section>
+      <LampSlider
+        icon={Sparkles}
+        label="Luminosité"
+        unit="%"
+        value={lampState.bright}
+        min={1}
+        max={100}
+        onCommit={(bright) =>
+          turnOnThen(() => invoke("set_bright", { state: { ...lampState, bright } }))
+        }
+      />
+      <LampSlider
+        icon={Thermometer}
+        label="Température de couleur"
+        unit="K"
+        value={lampState.ct}
+        min={1700}
+        max={6500}
+        step={100}
+        onCommit={(ct) =>
+          turnOnThen(() => invoke("set_ct", { state: { ...lampState, ct } }))
+        }
+      />
     </div>
   );
 }
