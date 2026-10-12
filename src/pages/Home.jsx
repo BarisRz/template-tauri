@@ -1,5 +1,3 @@
-import { invoke } from "@tauri-apps/api/core";
-import { useQuery } from "@tanstack/react-query";
 import { Outlet } from "react-router-dom";
 
 import Error from "./Error";
@@ -7,6 +5,7 @@ import SwitchComponent from "../components/SwitchComponent";
 import Theme from "../components/Theme";
 import Skeleton from "../components/Skeleton";
 import ColorTitleSection2 from "../components/ColorTitleSection2";
+import useLampState from "../hooks/useLampState";
 
 function Home() {
   const {
@@ -14,11 +13,7 @@ function Home() {
     isLoading,
     error,
     refetch,
-  } = useQuery({
-    queryKey: ["lampState"],
-    queryFn: () => invoke("get_lamp_state"),
-    retry: false,
-  });
+  } = useLampState();
 
   if (isLoading) {
     return <Skeleton />;

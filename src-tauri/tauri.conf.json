@@ -12,6 +12,7 @@
   "app": {
     "windows": [
       {
+        "label": "main",
         "title": "Light Hub",
         "width": 470,
         "height": 520,
@@ -23,6 +24,21 @@
         "maximizable": false,
         "decorations": false,
         "backgroundColor": "#0d0f16"
+      },
+      {
+        "label": "tray",
+        "title": "Light Hub mini",
+        "width": 360,
+        "height": 290,
+        "visible": false,
+        "decorations": false,
+        "resizable": false,
+        "maximizable": false,
+        "minimizable": false,
+        "skipTaskbar": true,
+        "alwaysOnTop": true,
+        "shadow": true,
+        "backgroundColor": "#090b12"
       }
     ],
     "security": {
