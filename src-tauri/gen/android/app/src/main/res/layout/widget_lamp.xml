@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- La pilule a la hauteur d'une icône d'accueil. Les icônes sont placées en haut de leur case
+     (le nom de l'app est en dessous) : la marge du bas remonte la pilule à leur niveau. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/widget_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <ImageView
+            android:id="@+id/widget_power"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/widget_button"
+            android:contentDescription="@string/widget_power"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_widget_power"
+            android:tint="@color/widget_on_button" />
+
+        <TextView
+            android:id="@+id/widget_bright_min"
+            style="@style/WidgetButton"
+            android:contentDescription="@string/widget_bright_min"
+            android:text="1%" />
+
+        <TextView
+            android:id="@+id/widget_bright_max"
+            style="@style/WidgetButton"
+            android:contentDescription="@string/widget_bright_max"
+            android:text="100%" />
+    </LinearLayout>
+</FrameLayout>

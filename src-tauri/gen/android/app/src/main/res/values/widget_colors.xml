@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Couleurs du widget sans couleurs dynamiques (avant Android 12) -->
+<resources>
+    <color name="widget_background">#FF171820</color>
+    <color name="widget_button">#FF22242D</color>
+    <color name="widget_on_button">#FFA0A0A3</color>
+    <color name="widget_active">#FFD8A253</color>
+    <color name="widget_on_active">#FFFFFFFF</color>
+</resources>

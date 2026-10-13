@@ -5,4 +5,8 @@
     <string name="tile_on">Allumée</string>
     <string name="tile_off">Éteinte</string>
     <string name="tile_unreachable">Injoignable</string>
+    <string name="widget_description">Allumer, éteindre et régler la luminosité</string>
+    <string name="widget_power">Allumer ou éteindre</string>
+    <string name="widget_bright_min">Luminosité minimale</string>
+    <string name="widget_bright_max">Luminosité maximale</string>
 </resources>

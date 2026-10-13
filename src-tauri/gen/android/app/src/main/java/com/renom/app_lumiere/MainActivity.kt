@@ -27,4 +27,10 @@ class MainActivity : TauriActivity() {
       WindowInsetsCompat.CONSUMED
     }
   }
+
+  // Les changements faits dans l'app sont répercutés sur la tuile et le widget en la quittant
+  override fun onPause() {
+    super.onPause()
+    LampWorker.refresh(this)
+  }
 }

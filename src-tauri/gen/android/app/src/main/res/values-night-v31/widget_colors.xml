@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Couleurs dynamiques Material You (thème sombre) -->
+<resources>
+    <color name="widget_background">@android:color/system_accent1_800</color>
+    <color name="widget_button">@android:color/system_accent1_700</color>
+    <color name="widget_on_button">@android:color/system_accent1_100</color>
+    <color name="widget_active">@android:color/system_accent1_200</color>
+    <color name="widget_on_active">@android:color/system_accent1_800</color>
+</resources>
